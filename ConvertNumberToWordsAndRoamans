@@ -1,0 +1,108 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Practise
+{
+    class ConvertNumberToWordsAndRomans
+    {
+
+        public static string NumToWord(int num)
+        {
+
+
+            //define units
+
+            string[] units ={"","one","two","three","four","five","six","seven","eight","nine","ten",
+                             "eleven","twelwe","thrteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen"};
+            //define tens
+            string[] tens = { "", "ten", "twenty", "thirtee", "fourty", "fifty", "sixty", "seventy", "eighty", "ninety" };
+
+            string words = "";
+            // if given number is 0 return zero
+            if (num == 0)
+                return "zero";
+            // if given number is lessthan 0 assign "minus" and call NumToWord() method with the given number in our case
+
+            if (num < 0)
+                return "minus" + NumToWord(num);
+
+            //if given number divided by 1000 then the quotient is greaterthan 0  call NumToWord() method with the given number
+            // and concantinate "thousand" to string "Words" and mod by 1000
+            if (num / 1000 > 0)
+            {
+                words += NumToWord(num / 1000) + " thousand ";
+                num %= 1000;
+            }
+
+            //if given number divided by 100 then the quotient is greaterthan 0  call NumToWord() method with the given number
+            // and concantinate "thousand" to string "Words" and mod by 1000
+
+            if (num / 100 > 0)
+            {
+                words += NumToWord(num / 100) + " hundred ";
+                num %= 100;
+            }
+            if (num > 0)
+            {
+                if (words != "")
+                    words += " and ";
+                if (num < 20)
+                    words += units[num];
+                else
+                {
+                    words += tens[num / 10];
+                    if (num % 10 > 0)
+                        words += " " + units[num % 10];
+                }
+            }
+            return words;
+        }
+
+
+        private struct RomanDigit
+        {
+            public string Rstr;
+            public int value;
+        }
+        private RomanDigit[] Rom;
+
+
+        public ConvertNumberToWordsAndRomans() //construct and init  the 3 types
+        {
+            Rom = new RomanDigit[] 
+            { 
+                new RomanDigit{Rstr = "M",  value = 1000},
+                new RomanDigit{Rstr = "CM", value = 900},
+                new RomanDigit{Rstr = "D",  value = 500},
+                new RomanDigit{Rstr = "CD", value = 400},
+                new RomanDigit{Rstr = "C",  value = 100},
+                new RomanDigit{Rstr = "XC", value = 90},
+                new RomanDigit{Rstr = "L",  value = 50},
+                new RomanDigit{Rstr = "XL", value = 40},
+                new RomanDigit{Rstr = "X",  value = 10},
+                new RomanDigit{Rstr = "IX", value = 9},
+                new RomanDigit{Rstr = "V",  value = 5},
+                new RomanDigit{Rstr = "IV", value = 4},
+                new RomanDigit{Rstr = "I",  value = 1},
+            };
+        }
+
+        public string ConvertwithStruct(int Number)
+        {
+            string RomanStr = string.Empty;
+            for (int i = 0; Number > 0; i++)
+            {
+                while (Rom[i].value <= Number)
+                {
+                    RomanStr += Rom[i].Rstr;
+                    Number -= Rom[i].value;
+                }
+            }
+            return RomanStr;
+        }
+
+    }
+}
