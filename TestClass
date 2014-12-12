@@ -1,0 +1,38 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Practise
+{
+    class TestClass
+    {
+        static void Main(string[] args)
+        {
+
+            Console.WriteLine("Enter a number upto 4 digit: ");
+            int num = int.Parse(Console.ReadLine());
+
+
+
+            ConvertNumberToWordsAndRomans RC = new ConvertNumberToWordsAndRomans();
+            string RomanNumeral = string.Empty;
+            Console.WriteLine("Enter number for roman numeral");
+
+            int DecimalNumber = Convert.ToInt32(Console.ReadLine());
+
+            RomanNumeral = RC.ConvertwithStruct(DecimalNumber);
+
+            
+
+            Console.WriteLine("The given number in words: "+ ConvertNumberToWordsAndRomans.NumToWord(num));
+
+            Console.WriteLine();
+
+            Console.WriteLine("The integer {0} is {1} in roman.", DecimalNumber, RomanNumeral);
+
+            Console.ReadLine();
+        }
+    }
+}
